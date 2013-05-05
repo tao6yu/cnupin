@@ -5,12 +5,12 @@
             <div class="f_list">
                 <h4><b>发现热门</b></h4>
                 <ul class="l_one">
-                    <li><a target="_blank" href="./?m=search">逛宝贝</a></li>
-                    <li><a target="_blank" href="./?m=cate&a=index&cid=2">找鞋子</a></li>
-                    <li><a target="_blank" href="./?a=index&m=cate&cid=3">选包包</a></li>
-                    <li><a target="_blank" href="./?a=index&m=cate&cid=4">搭配饰</a></li>
-					<li><a target="_blank" href="./?a=index&m=cate&cid=5">爱美妆</a></li>
-					<li><a target="_blank" href="./?a=index&m=cate&cid=6">装家居</a></li>
+                    <li><a target="_blank" href="./?m=group">逛宝贝</a></li>
+                    <li><a target="_blank" href="./?m=cate&a=index&cid=1">找鞋子</a></li>
+                    <li><a target="_blank" href="./?a=index&m=cate&cid=2">选包包</a></li>
+                    <li><a target="_blank" href="./?a=index&m=cate&cid=3">搭配饰</a></li>
+					<li><a target="_blank" href="./?a=index&m=cate&cid=4">爱美妆</a></li>
+					<li><a target="_blank" href="./?a=index&m=cate&cid=5">装家居</a></li>
                 </ul>
             </div>
             <div class="f_list">
@@ -36,11 +36,6 @@
                     </volist>              
                 </ul>
             </div>
-            <div class="logo" style="float: left;margin-top: 30px;"> 
-                <a title="{$site_name}" href="__APP__/"> 
-                    <img alt="{$site_name}" src="__TMPL__/public/images/logo.gif"> 
-                </a> 
-            </div>
             <div class="f_list">
                 <h4><b>友情链接</b>  更多>></h4>
                 <ul class="l_two">
@@ -48,7 +43,6 @@
                     	<if condition="($val.cate_id eq '1')">
 						<li><a target="_blank" href="{$val.url}" class="f_links fl">{$val.name}</a></li>
 						</if>
-                        
                     </volist>
                  </ul>
             </div>
@@ -76,17 +70,11 @@
                 </ul>
             </div>
         </div>
-
         
 		<!--友情链接-->
         </present>
         <div class="new_footer tc">
         	<div class="copyright">Copyright &copy;2012 {$site_name}. All Rights Reserved. {$site_icp} {$statistics_code}</div>
-                 <!-- 百度统计 -->
-                <script type="text/javascript">
-                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-                    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F688745cd17c1341d58bed3a63f167565' type='text/javascript'%3E%3C/script%3E"));
-                </script>
         </div>
 	</div>
 </div>

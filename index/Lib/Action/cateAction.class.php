@@ -6,10 +6,6 @@ class cateAction extends baseAction {
         
         $cid = isset($_GET['cid']) && intval($_GET['cid']) ? intval($_GET['cid']) : 0;
         
-         //获取是否选中
-        // $isCurr = isset($_GET['isCurr']) && intval($_GET['isCurr']) ? intval($_GET['isCurr']) : 0;
-
-
         $items_mod = D('items');
         $items_cate_mod = D('items_cate');
         import("ORG.Util.Page");
@@ -28,7 +24,7 @@ class cateAction extends baseAction {
         $res = get_items_cate_list($cate_res['id'], $cate_res['level']);
 
         $this->assign('cate_list', $res['list']);
-        $this->assign('isCurr',$isCurr);
+
         
         if ($cid) {
             $cate_info = $items_cate_mod->order('ordid DESC')->where(array('status' => 1, 'id' => $cid))->find();

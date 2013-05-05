@@ -42,9 +42,9 @@ class taobao_itemcollect {
 		$result['item']['key'] = $key;
 		$result['item']['title'] = $item['title'];
 		$result['item']['price'] = $item['price'];
-		$result['item']['img'] = $item['pic_url'] . '_210x1000.jpg';
+		$result['item']['img'] = $item['pic_url'] . '_290x290.jpg';
 		$result['item']['simg'] = $item['pic_url'] . '_64x64.jpg';
-		$result['item']['bimg'] = $item['pic_url'];
+		$result['item']['bimg'] = $item['pic_url'].'_460x460.jpg';
 		$result['item']['url'] = $item['detail_url'];
                 $result['item']['volume'] = $item['volume'];
 		$result['item']['author'] = 'taobao';

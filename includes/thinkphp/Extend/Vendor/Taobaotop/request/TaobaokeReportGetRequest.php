@@ -92,9 +92,4 @@ class TaobaokeReportGetRequest
 		RequestCheckUtil::checkMinValue($this->pageNo,1,"pageNo");
 		RequestCheckUtil::checkMaxValue($this->pageSize,100,"pageSize");
 	}
-
-	public function putOtherTextParam($key, $value) {
-		$this->apiParas[$key] = $value;
-		$this->$key = $value;
-	}
 }

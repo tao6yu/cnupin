@@ -48,10 +48,11 @@ class clientAction extends Action{
 			     'cid'=>$item->cid,
 			     'item_key'=>"taobao_".$item->id,
 			     'title'=>$item->title,
-			     'img'=>$item->img.'_210x1000.jpg',
+			     'img'=>$item->img.'_290x290.jpg',
 			     'simg'=>$item->img.'_64x64.jpg',
-			     'bimg'=>$item->img,
+			     'bimg'=>$item->img.'_460x460.jpg',
 			     'price'=>$item->price,
+			     'promotion_price'=>$item->promotion_price,
 			     'url'=>$item->url,
 			);
 			$item_id=$items_mod->add($data);

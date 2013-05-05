@@ -3,9 +3,9 @@
         <div class="item_t">
             <div class="img tc"> 
             	<a target="_blank" href="{:u('item/index',array('id'=>$val['id']))}" hidefocus="true" rel="nofollow">
-                	<img alt="{$val.title}" title="{$val.title}" url="{:base64_encode($val['img'])}" style="display:inline;" class="encode_url">
+                	<img alt="{$val.title}" url="{:base64_encode($val['img'])}" style="display:inline;" class="encode_url">
             	</a>
-                <span class="price">￥{$val.price}</span> 
+                <span class="price">促销价:￥{$val.promotion_price}</span> 
                 <div class="btns">
                 	<a href="javascript:;" class="img_album_btn" iid="{$val.id}">
                         加入专辑
@@ -20,6 +20,19 @@
             <div class="items_likes fl"> 
             	<a href="javascript:;" class="like_btn" iid="{$val.id}" iurl="{:u('item/index',array('id'=>$val['id']))}"></a>
                 <em class="red bold" id="like_num_{$val.id}">{$val.likes}</em> 
+
+                <!-- <neq name="$val.price" value="$val.promotion_price">
+                    <span style="font-size: 20px;">
+                    原价:<del>￥{$val.price}</del>
+                    </span>
+                </neq> -->
+                <if condition="$val.price neq $val.promotion_price">
+                    <span style="font-size: 20px;">
+                    原价:<del>￥{$val.price}</del>
+                    </span>
+                </if>
+                
+                 
            	</div>
             <div class="items_comment fr">
             	<a href="{:u('item/index',array('id'=>$val['id']))}#items_comments" target="_blank">评论</a>

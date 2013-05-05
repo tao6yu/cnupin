@@ -75,6 +75,8 @@
                 <th width=60>分类</th>
                 <th width=30>来源</th>
                 <th width=80><a href="{:u('items/index',array('time_start'=>$time_start,'time_end'=>$time_end,'cate_id'=>$cate_id,'is_index'=>$is_index,'keyword'=>$keyword,'order'=>'last_time','sort'=>$sort))}" class="blue <if condition="$order eq 'last_time'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">更新时间</a></th>
+                <th width=60><a href="{:u('items/index',array('time_start'=>$time_start,'time_end'=>$time_end,'cate_id'=>$cate_id,'is_index'=>$is_index,'keyword'=>$keyword,'order'=>'commission','sort'=>$sort))}" class="blue <if condition="$order eq 'commission'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">佣金(元)</a></th>
+                <th width=60><a href="{:u('items/index',array('time_start'=>$time_start,'time_end'=>$time_end,'cate_id'=>$cate_id,'is_index'=>$is_index,'keyword'=>$keyword,'order'=>'promotion_price','sort'=>$sort))}" class="blue <if condition="$order eq 'promotion_price'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">促销价(元)</a></th>
                 <th width=60><a href="{:u('items/index',array('time_start'=>$time_start,'time_end'=>$time_end,'cate_id'=>$cate_id,'is_index'=>$is_index,'keyword'=>$keyword,'order'=>'price','sort'=>$sort))}" class="blue <if condition="$order eq 'price'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">价格(元)</a></th>
                 <th width=40><a href="{:u('items/index',array('time_start'=>$time_start,'time_end'=>$time_end,'cate_id'=>$cate_id,'is_index'=>$is_index,'keyword'=>$keyword,'order'=>'likes','sort'=>$sort))}" class="blue <if condition="$order eq 'likes'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">喜欢</a></th>
 				<th width=40><a href="{:u('items/index',array('time_start'=>$time_start,'time_end'=>$time_end,'cate_id'=>$cate_id,'is_index'=>$is_index,'keyword'=>$keyword,'order'=>'hits','sort'=>$sort))}" class="blue <if condition="$order eq 'hits'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">人气</a></th>	
@@ -95,6 +97,8 @@
             <td align="center"><b>{$val.items_cate.name}</b></td>
             <td align="center"><img src="__ROOT__/data/author/32_{$val.items_site.site_logo}" width="16" height="16" style="margin-right:5px;" /></td>
             <td align="center">{$val.last_time|date="Y-m-d H:i:s",###}</td>
+            <td align="center"><em style="color:red;">￥{$val.commission}</em></td>
+            <td align="center"><em style="color:red;">￥{$val.promotion_price}</em></td>
             <td align="center"><em style="color:red;">￥{$val.price}</em></td>
             <td><input type="text" class="input-text-c input-text" value="{$val.likes}" size="4" name="likes_{$val.id}"  id="likes_{$val.id}" onchange="likes({$val.id})" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></td>
            	<td align="center"><em style="color:green;">{$val.hits}</em></td>

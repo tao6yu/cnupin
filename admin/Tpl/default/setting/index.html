@@ -73,6 +73,18 @@
                 <input type="radio" <if condition="$set.index_pins eq '0'">checked="checked"</if> onclick="" value="0" name="site[index_pins]"> 不显示 &nbsp;&nbsp;
               </td>
             </tr>
+            <tr>
+                <th width="100">网站地图(xml) :</th>
+                <td>
+                  <a id="down" href="{:U('Sitemap/xml')}">生成sitemap.xml</a> 
+                </td>
+            </tr>
+            <tr>
+              <th width="100">网站地图(html) :</th>
+              <td>
+                <a id="down" href="{:U('Sitemap/html')}">生成sitemap.html</a> 
+              </td>
+            </tr>
          </table>      
       </div>
       

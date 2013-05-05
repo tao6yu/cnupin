@@ -1,9 +1,6 @@
 <?php
 class indexAction extends baseAction {
     function index() {
-        //获取是否选中
-        // $isCurr = isset($_GET['isCurr']) && intval($_GET['isCurr']) ? intval($_GET['isCurr']) : 0;
-        
         $focus_mod = D('focus');
         $index_group_cates = $this->get_index_group_cates();
         //热门活动
@@ -17,8 +14,6 @@ class indexAction extends baseAction {
         $this->assign('index_group_cates', $index_group_cates);
         
         $this->waterfall(100,'','sort_order DESC,last_time DESC');
-
-        $this->assign('isCurr',$isCurr);
     }
 
     function get_index_group_cates() {

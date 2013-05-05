@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'cid', 2 => 'level', 3 => 'item_key', 4 => 'title', 5 => 'commission', 6 => 'commission_num', 7 => 'img', 8 => 'simg', 9 => 'bimg', 10 => 'price', 11 => 'url', 12 => 'info', 13 => 'sid', 14 => 'hits', 15 => 'dlikes', 16 => 'likes', 17 => 'haves', 18 => 'comments', 19 => 'comments_last', 20 => 'is_index', 21 => 'status', 22 => 'add_time', 23 => 'last_time', 24 => 'uid', 25 => 'seo_title', 26 => 'seo_keys', 27 => 'sort_order', 28 => 'seo_desc', 29 => 'remark', 30 => 'remark_status', '_autoinc' => true, '_pk' => 'id', ); ?>

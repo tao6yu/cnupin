@@ -718,22 +718,6 @@ class itemsAction extends baseAction {
         $this->ajaxReturn($values['status']);
     }
 
-        //获取淘宝分类
-    private function get_taocats($cid = 0) {        
-        $tb_top = $this->taobao_client();
-        $req = $tb_top->load_api('ItemcatsGetRequest');
-        $req->setFields("cid,parent_cid,name,is_parent");
-        $req->setParentCid($cid);
-        $resp = $tb_top->execute($req);
-        $res_cats = (array) $resp->item_cats;
-        $item_cate = array();
-        foreach ($res_cats['item_cat'] as $val) {
-            $val = (array) $val;
-            $item_cate[] = $val;
-        }       
-        return $item_cate;
-    }
-    
     function collect_by_words() {
         $items_cate_mod = D('items_cate');
         $cate_list = $items_cate_mod->get_list();
@@ -753,19 +737,13 @@ class itemsAction extends baseAction {
             $collect_taobao_mod = D('collect_taobao');
             $tb_top = $this->taobao_client();
             $req = $tb_top->load_api('TaobaokeItemsGetRequest');
-            $req->setFields("num_iid,title,commission,commission_num,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
+            $req->setFields("num_iid,title,nick,pic_url,price,commission,commission,commission_rate,commission_num,commission_volume,volume,click_url,shop_click_url,seller_credit_score,item_location,volume,promotion_price");
             $req->setPid($this->setting['taobao_pid']);
             $req->setKeyword($keywords);
             $req->setPageNo($p);
             $req->setPageSize(40);
-            $req->setStartCredit("1diamond");
-            $req->setEndCredit("5goldencrown");
-            $req->setSort("credit_desc");
-            $req->setStartCommissionRate("200");
-            $req->setEndCommissionRate("5000");
-            $req->setStartCommissionNum("100");
-            $req->setEndCommissionNum("1000000");
             $resp = $tb_top->execute($req);
+
             $res = $this->simplexml_obj2array($resp);
             if ($res['code']) {
                 exit($res['msg']);
@@ -782,8 +760,6 @@ class itemsAction extends baseAction {
                 if (strpos($item['title'],'男')===false) {
                     $this->_collect_insert($item, $cate_id);
                 }
-                 
-               
             }
 
             //记录采集时间
@@ -818,15 +794,17 @@ class itemsAction extends baseAction {
         }
         $item_id = $items_mod->add(array(
             'title' => strip_tags($item['title']),
-            'commission' => $item['commission'],
-            'commission_num' => $item['commission_num'],
+            'nick' => $item['nick'],
             'cid' => $cate_id,
             'sid' => $item['sid'],
             'item_key' => $item['item_key'],
-            'img' => $item['pic_url'] . '_210x1000.jpg',
+            'img' => $item['pic_url'] . '_290x290.jpg',
             'simg' => $item['pic_url'] . '_64x64.jpg',
-            'bimg' => $item['pic_url'],
+            'bimg' => $item['pic_url'].'_460x460.jpg',
             'price' => $item['price'],
+            'commission_rate' => $item['commission_rate']/100,
+            'commission' => $item['promotion_price']*($item['commission_rate']/10000),
+            'promotion_price' => $item['promotion_price'],
             'url' => $item['click_url'],
             'likes' => $item['volume'],
             'haves' => $item['volume'],

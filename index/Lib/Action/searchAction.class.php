@@ -20,8 +20,8 @@ class searchAction extends baseAction {
             $sql_where = "status='1'";
         }
 	switch ($sortby) {
-            case 'dlikes' :
-                $sql_order = "dlikes DESC,last_time DESC";
+            case 'likes' :
+                $sql_order = "likes DESC,last_time DESC";
                 break;
             case 'time' :
                 $sql_order = "last_time DESC";
@@ -30,7 +30,7 @@ class searchAction extends baseAction {
             	$sql_order = "sort_order DESC";
             	break;
             default :
-                $sql_order = "dlikes DESC,last_time DESC";
+                $sql_order = "likes DESC,last_time DESC";
                 break;
         }
         $this->assign('search_keywords',explode(',',$this->setting['search_words']));

@@ -8,9 +8,10 @@ var items_id="{$items_id}";
 	<div class="mt15">
 	<script language="javascript" src="{:u('advert/index', array('id'=>4))}"></script>
     </div>
+    <p class="item_title f14 bold" style='font-size: 20px;margin-top: 35px;line-height: 25px;'><a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}">{$item.title}</a></p>
 	<div class="item_left fl">
     	<div class="single_item box_shadow mt15 clearfix">
-        	<dl class="twitter_top">
+        	<!-- <dl class="twitter_top">
                 <dt>
                 	<a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}">
                 		<img src="__ROOT__/data/author/32_{$item.items_site.site_logo}"></a>
@@ -22,27 +23,27 @@ var items_id="{$items_id}";
                     <span><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="red f12">#{$item.items_cate.name}#</a></span>
                 </dd>
                 <dd class="quote_goods_title break_word">{$item.title}</dd>
-            </dl>
+            </dl> -->
             
         	<div class="item_pic">
 				<a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}"><img url="{:base64_encode($item['bimg'])}" class="encode_url"></a>
-				<volist name="pics" id="val">
+				<!-- <volist name="pics" id="val">
 				<br><a><img src="{$val['url']}"></a>
-				</volist>
+				</volist> -->
 			</div>
 			<div class="item_detail">
-            	<div class="break_word">
-            		<p class="item_title f14 bold"><a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}">{$item.title}</a></p>
+            	<div class="break_word" style='margin-top: 80px;'>
+            		
                     <if condition="$item.price neq '0.00'">
                     <div class="clearfix" style="padding:12px 0;">
-                        <p class="fl">价&nbsp;&nbsp;&nbsp;格:<strong style="margin-top:5px;font: normal 24px Tahoma,Arial,Helvetica,sans-serif;color: #f40;"><em style="font-family: arial;color: #999;font-weight: 400;">￥</em>{$item.price}</strong>元</p>
+                        <p class="fl" style='color: white;font-size: 22px; font-weight: bold;background-color: rgb(245,77,134);line-height: 25px;padding: 5px;border-radius: 10px 30px 30px 10px;'>￥:{$item.promotion_price}元<a style="margin-left: 5px;color: white;font-size: 22px; font-weight: bold;" target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}" class="red f16">去购买</a></p>
                     </div>
                     </if>
                     <p class="p_heart">
                     	<a onclick="javascript:;" class="like_it cursor pop_comm" iid="{$item.id}"><b class="red nums" id="like_num_{$item.id}">{$item.likes}</b></a><br />
-                     	<if condition="$item.price neq '0.00'">
-                        <p style="margin-top:20px;"><a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}"  class="goBuy">去购买</a></p>
-                        </if>
+                     	<!-- <if condition="$item.price neq '0.00'">
+                        <p style="margin-top:20px;"><a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}" class="red f16">去购买&gt;&gt;</a></p>
+                        </if> -->
                     </p>
                 </div>
             </div>
@@ -51,7 +52,7 @@ var items_id="{$items_id}";
 			</div>
             
 			<div class="item_tags clearfix">
-				<span class="fl">宝贝标签：</span>
+				<!-- <span class="fl">宝贝标签：</span> -->
                 <volist name="item['items_tags']" id="val">
 				<a href="{:u('cate/tag',array('tag'=>urlencode($val['name'])))}">{$val.name}</a>
                 </volist>

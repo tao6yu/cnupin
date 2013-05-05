@@ -122,19 +122,25 @@ class items_collectAction extends baseAction
             $taobao['pid'] = isset($_POST['pid']) && trim($_POST['pid']) ? trim($_POST['pid']) : $this->error('请填写pid');
             $taobao['appkey'] = isset($_POST['appkey']) && trim($_POST['appkey']) ? trim($_POST['appkey']) : $this->error('请填写appkey');
             $taobao['appsecret'] = isset($_POST['appsecret']) && trim($_POST['appsecret']) ? trim($_POST['appsecret']) : $this->error('请填写appsecret');
-            
-            $taobao['commission_rate_min'] = isset($_POST['commission_rate_min']) && trim($_POST['commission_rate_min']) ? trim($_POST['commission_rate_min']) : $this->error('请填写佣金比例');
-            $taobao['commission_rate_max'] = isset($_POST['commission_rate_max']) && trim($_POST['commission_rate_max']) ? trim($_POST['commission_rate_max']) : $this->error('请填写佣金比例');
-            $taobao['levelstart'] = isset($_POST['levelstart']) && trim($_POST['levelstart']) ? trim($_POST['levelstart']) : $this->error('请选择店铺等级');
-            $taobao['levelend'] = isset($_POST['levelend']) && trim($_POST['levelend']) ? trim($_POST['levelend']) : $this->error('请选择店铺等级');
+
+            $taobao['start_price'] = isset($_POST['start_price']) && trim($_POST['start_price']) ? trim($_POST['start_price']) : $this->error('请填写start_price');
+            $taobao['end_price'] = isset($_POST['end_price']) && trim($_POST['end_price']) ? trim($_POST['end_price']) : $this->error('请填写end_price');
+            $taobao['start_commissionRate'] = isset($_POST['start_commissionRate']) && trim($_POST['appsecret']) ? trim($_POST['start_commissionRate']) : $this->error('请填写start_commissionRate');
+            $taobao['end_commissionRate'] = isset($_POST['end_commissionRate']) && trim($_POST['end_commissionRate']) ? trim($_POST['end_commissionRate']) : $this->error('请填写end_commissionRate');
+            $taobao['start_commissionNum'] = isset($_POST['start_commissionNum']) && trim($_POST['start_commissionNum']) ? trim($_POST['start_commissionNum']) : $this->error('请填写start_commissionNum');
+            $taobao['end_commissionNum'] = isset($_POST['end_commissionNum']) && trim($_POST['end_commissionNum']) ? trim($_POST['end_commissionNum']) : $this->error('请填写end_commissionNum');
+            $taobao['start_totalnum'] = isset($_POST['start_totalnum']) && trim($_POST['start_totalnum']) ? trim($_POST['start_totalnum']) : $this->error('请填写start_totalnum');
+            $taobao['end_totalnum'] = isset($_POST['end_totalnum']) && trim($_POST['end_totalnum']) ? trim($_POST['end_totalnum']) : $this->error('请填写end_totalnum');
+            $taobao['levelstart'] = isset($_POST['levelstart']) && trim($_POST['levelstart']) ? trim($_POST['levelstart']) : $this->error('请填写levelstart');
+            $taobao['levelend'] = isset($_POST['levelend']) && trim($_POST['levelend']) ? trim($_POST['levelend']) : $this->error('请填写levelend');
+
 
             foreach( $taobao as $key=>$val ){
-                $setting_mod->where("name='".$key."'")->save(array('data'=>$val));
+                $setting_mod->where("name='taobao_".$key."'")->save(array('data'=>$val));
             }
             $this->success('修改成功', U('items_collect/taobaoapi'));
         }
-        $res = $setting_mod->where("name='taobao_usernick' OR name='taobao_pid' OR name='taobao_appkey' OR name='taobao_appsecret' OR name='commission_rate_min' OR name='commission_rate_max' OR name='levelstart' OR name='levelend'")->select();
-
+        $res = $setting_mod->where("name='taobao_usernick' OR name='taobao_pid' OR name='taobao_appkey' OR name='taobao_appsecret' OR name='taobao_start_price' OR name='taobao_end_price' OR name='taobao_start_commissionRate' OR name='taobao_end_commissionRate' OR name='taobao_start_commissionNum' OR name='taobao_end_commissionNum' OR name='taobao_start_totalnum' OR name='taobao_end_totalnum' OR name='taobao_levelstart' OR name='taobao_levelend'")->select();
         foreach( $res as $val )
         {
             $taobaoset[$val['name']] = $val['data'];
@@ -142,8 +148,6 @@ class items_collectAction extends baseAction
         $this->assign('taobao',$taobaoset);
         $this->display();
     }
-
-
 
     public function taobao_collect()
     {
@@ -186,12 +190,11 @@ class items_collectAction extends baseAction
 
         $tb_top = $this->taobao_client();
         $req = $tb_top->load_api('TaobaokeItemsGetRequest');
-        $req->setFields("num_iid,title,commission,commission_num,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
+        $req->setFields("num_iid,title,nick,pic_url,price,,commission,commission,commission_rate,commission_num,commission_volume,volume,click_url,shop_click_url,seller_credit_score,item_location,volume,promotion_price");
         $req->setPid($this->setting['taobao_pid']);
         $req->setKeyword('男装');
         $req->setPageNo(1);
         $req->setPageSize(40);
-        
         $resp = $tb_top->execute($req);
         $goods_list = (array)$resp->taobaoke_items;
         //print_r($goods_list);exit;
@@ -203,7 +206,9 @@ class items_collectAction extends baseAction
             $item = (array)$item;
             $item['item_key'] = 'taobao_'.$item['num_iid'];
             $item['sid'] = $sid;
-            $this->_collect_insert($item, $cate_id);
+            if (strpos($item['title'], '男')===false) {
+                $this->_collect_insert($item, $cate_id);
+            }
             $items_nums++;
         }
         //更新分类表商品数
@@ -237,21 +242,31 @@ class items_collectAction extends baseAction
         $collect_taobao_mod = D('collect_taobao');
         $tb_top = $this->taobao_client();
         $req = $tb_top->load_api('TaobaokeItemsGetRequest');
-        $req->setFields("num_iid,title,commission,commission_num,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
+        $req->setFields("num_iid,title,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,commission,commission,commission_rate,commission_num,commission_volume,volume,promotion_price");
         $req->setPid($this->setting['taobao_pid']);
+        $req->setNick($this->setting['taobao_usernick']);   
+        // $req->setCid($cid);
+        /*
+        name='taobao_usernick' OR name='taobao_pid' OR name='taobao_appkey' OR name='taobao_appsecret' OR name='taobao_start_price' OR name='taobao_end_price' OR name='taobao_appsecret' OR name='taobao_start_commissionRate' OR name='taobao_end_commissionRate' OR name='taobao_start_commissionNum' OR name='taobao_end_commissionNum' OR name='taobao_start_totalnum' OR name='taobao_end_totalnum' OR name='taobao_levelstart' OR name='taobao_levelend
+        */
+        /**/
+        $req->setStartPrice($this->setting['taobao_start_price']);
+        $req->setEndPrice($this->setting['taobao_end_price']);
+        $req->setStartCredit($this->setting['taobao_levelstart']);
+        $req->setEndCredit($this->setting['taobao_levelend']);
+        $req->setStartCommissionRate($this->setting['taobao_start_commissionRate']*100);
+        $req->setEndCommissionRate($this->setting['taobao_end_commissionRate']*100);
+        $req->setStartCommissionNum($this->setting['taobao_start_commissionNum']);
+        $req->setEndCommissionNum($this->setting['taobao_end_totalnum']);
+        $req->setStartTotalnum($this->setting['taobao_start_totalnum']);
+        $req->setEndTotalnum($this->setting['taobao_end_totalnum']);
         $req->setKeyword($keywords);
         $req->setPageNo($p);
         $req->setPageSize(40);
-        $req->setStartCredit("1diamond");
-        $req->setEndCredit("5goldencrown");
-        $req->setSort("credit_desc");
-        $req->setStartCommissionRate("200");
-        $req->setEndCommissionRate("5000");
-        $req->setStartCommissionNum("100");
-        $req->setEndCommissionNum("1000000");
+        // print_r($req);exit;
         $resp = $tb_top->execute($req);
         $goods_list = (array)$resp->taobaoke_items;
-        //print_r($goods_list);exit;
+        // print_r($goods_list);exit;
 
         $sid = $items_site_mod->where("alias='taobao'")->getField('id');
 
@@ -260,9 +275,10 @@ class items_collectAction extends baseAction
             $item = (array)$item;
             $item['item_key'] = 'taobao_'.$item['num_iid'];
             $item['sid'] = $sid;
-            if (strpos($item['title'],'男')===false) {
-                    $this->_collect_insert($item, $cate_id);
+            if (strpos($item['title'], '男')===false) {
+                $this->_collect_insert($item, $cate_id);
             }
+            
             $items_nums++;
         }
         //更新分类表商品数
@@ -314,15 +330,17 @@ class items_collectAction extends baseAction
         }
         $item_id = $items_mod->add(array(
             'title' => strip_tags($item['title']),
+            'nick' => $item['nick'],
             'cid' => $cate_id,
             'sid' => $item['sid'],
-            'commission' => $item['commission'],
-            'commission_num' => $item['commission_num'],
             'item_key' => $item['item_key'],
-            'img' => $item['pic_url'].'_210x1000.jpg',
+            'img' => $item['pic_url'].'_290x290.jpg',
             'simg' => $item['pic_url'].'_64x64.jpg',
-            'bimg' => $item['pic_url'],
+            'bimg' => $item['pic_url'].'_460x460.jpg',
+            'commission_rate' => $item['commission_rate']/100,
+            'commission' => $item['promotion_price']*($item['commission_rate']/10000),
             'price' => $item['price'],
+            'promotion_price' => $item['promotion_price'],
             'url' => $item['click_url'],
             'likes' => $item['volume'],
             'haves' => $item['volume'],

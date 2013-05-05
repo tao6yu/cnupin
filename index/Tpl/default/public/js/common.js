@@ -2,8 +2,8 @@ function item_masonry(){
     $('.item img').load(function(){ 
         $('.infinite_scroll').masonry({ 
             itemSelector: '.masonry_brick',
-            columnWidth:226,
-            gutterWidth:15								
+            columnWidth:306,
+            gutterWidth:10								
         });		
     });
 }

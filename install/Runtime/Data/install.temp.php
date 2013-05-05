@@ -4,7 +4,7 @@ return array (
   'db_port' => '3306',
   'db_user' => 'root',
   'db_pass' => 'root',
-  'db_name' => 'pinphpv2',
+  'db_name' => 'pinphp',
   'db_prefix' => 'pp_',
   'admin_user' => 'admin',
   'admin_pass' => 'admin',
