@@ -45,7 +45,7 @@ $(function(){
     <div class="mbox clearfix" id="topHeader">
         <span class="logo"> 
         	<a title="<?php echo ($site_name); ?>" href="__APP__/"> 
-            	<img alt="<?php echo ($site_name); ?>" src="__TMPL__/public/images/logo.gif"> 
+            	<img alt="<?php echo ($site_name); ?>" src="__TMPL__/public/images/logo.png"> 
          	</a> 
      	</span>
         <div class="right">

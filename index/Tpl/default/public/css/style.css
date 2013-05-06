@@ -539,14 +539,16 @@ span.tag_title {
 .catalog_item div a {
 	float: left;
 	white-space: nowrap;
-	border-radius: 10px;
+	border-radius: 12px;
 	background: #eaeceb;
-	color: #666;
+	color: #999999;
 	border: 1px solid #cccccc;
 	height: 22px;
 	line-height: 22px;
-	padding: 0px 7px;
-	margin: 3px;
+	margin: 0 8px 8px 0;
+	padding: 3px 8px;
+	font-family: arial, sans-serif;
+	font-size: 14px;
 }
 .catalog_item div a:hover{
 	background: #fe73ab;
