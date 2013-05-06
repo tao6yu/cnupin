@@ -260,6 +260,7 @@ class items_collectAction extends baseAction
         $req->setEndCommissionNum($this->setting['taobao_end_totalnum']);
         $req->setStartTotalnum($this->setting['taobao_start_totalnum']);
         $req->setEndTotalnum($this->setting['taobao_end_totalnum']);
+        $req->setSort("commissionRate_desc");
         $req->setKeyword($keywords);
         $req->setPageNo($p);
         $req->setPageSize(40);
