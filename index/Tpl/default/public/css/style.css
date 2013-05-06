@@ -556,14 +556,15 @@ span.tag_title {
 }
 .catalog_item a.on {
 	float: left;
-	border-radius: 10px;
+	border-radius: 12px;
 	cursor: pointer;
 	background-color: #fe73ab;
 	color: white !important;
 	white-space: nowrap;
-	padding: 0 7px;
-	line-height:22px;
-	margin: 3px;
+	margin: 0 8px 8px 0;
+	padding: 3px 8px;
+	font-family: arial, sans-serif;
+	font-size: 14px;
 }
 .catalog h3 {
 	font-size: 14px;
