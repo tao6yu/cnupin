@@ -2,17 +2,19 @@
 class SitemapAction extends BaseAction{
 	public function xml(){
 		$items=M('Items');
-		$items_list=$items->field('id,add_time')->where('status=1')->order('add_time desc')->select();
+		$items_list=$items->field('id,add_time')->where('status=1')->order('add_time desc')->limit('0,500')->select();
 
 		foreach ($items_list as $key=>$val){
-			$url='http://'.$_SERVER['HTTP_HOST'].get_url('index',$val['id'],'item');
+			// $url='http://'.$_SERVER['HTTP_HOST'].get_url('index',$val['id'],'item');
+			$url='http://'.$_SERVER['HTTP_HOST'].'?a=index&m=item&id='.$val['id'];
+			// dump($url);
 			$url=str_replace('&', '&amp;', $url);
 			$add_time=date('Y-m-d',$val['add_time']);
 			$num=mt_rand(1, 10)/10;
 			$xml .="<url>\r\n<loc>".$url."</loc>\r\n<lastmod>".$add_time."</lastmod>\r\n<changefreq>always</changefreq>\r\n<priority>".$num."</priority>\r\n</url>\r\n";
 		}
 		$file = '<?xml version="1.0" encoding="utf-8"?>'."\r\n<urlset>\r\n".$xml."</urlset>";		
-		file_put_contents('./statics/sitemap.xml', $file);
+		file_put_contents('sitemap.xml', $file);
 		
 		$this->success('成功生成sitemap.xml');
 	}

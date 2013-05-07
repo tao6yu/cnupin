@@ -196,6 +196,11 @@
 	/*margin: 2px auto 0;*/
 	height: 37px;
 	z-index: 400;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif, Simsun;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
 }
 .main_nav {
 	width:950px;
@@ -215,7 +220,7 @@
 }
 .main_nav .nav_left li {
 	background: url("../images/line2.gif") no-repeat scroll right center transparent;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
 	line-height: 36px;
 	float:left;
@@ -547,7 +552,7 @@ span.tag_title {
 	line-height: 22px;
 	margin: 0 8px 8px 0;
 	padding: 3px 8px;
-	font-family: arial, sans-serif;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif, Simsun;
 	font-size: 14px;
 }
 .catalog_item div a:hover{
@@ -563,7 +568,7 @@ span.tag_title {
 	white-space: nowrap;
 	margin: 0 8px 8px 0;
 	padding: 3px 8px;
-	font-family: arial, sans-serif;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif, Simsun;
 	font-size: 14px;
 }
 .catalog h3 {
