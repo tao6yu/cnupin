@@ -168,6 +168,7 @@ class items_collectAction extends baseAction
         $tags_cate_mod=D('items_tags_cate');
         $tags_mod=D('items_tags');
         $items_cate_mod = D('items_cate');
+        $items_mod = D('items');
         $items_site_mod = D('items_site');
         $collect_taobao_mod = D('collect_taobao');
 
@@ -207,7 +208,10 @@ class items_collectAction extends baseAction
             $item['item_key'] = 'taobao_'.$item['num_iid'];
             $item['sid'] = $sid;
             if (strpos($item['title'], '男')===false) {
-                $this->_collect_insert($item, $cate_id);
+                 $obj = $items_mod->where(' title ="'.$item['title'].'"')->find();
+                if (!$obj) {
+                    $this->_collect_insert($item, $cate_id);
+                }
             }
             $items_nums++;
         }
@@ -239,6 +243,7 @@ class items_collectAction extends baseAction
         $p = isset($_GET['p']) && intval($_GET['p']) ? intval($_GET['p']) : 1;//当前页
         $items_cate_mod = D('items_cate');
         $items_site_mod = D('items_site');
+        $items_mod = D('items_mod');
         $collect_taobao_mod = D('collect_taobao');
         $tb_top = $this->taobao_client();
         $req = $tb_top->load_api('TaobaokeItemsGetRequest');
@@ -261,6 +266,7 @@ class items_collectAction extends baseAction
         $req->setStartTotalnum($this->setting['taobao_start_totalnum']);
         $req->setEndTotalnum($this->setting['taobao_end_totalnum']);
         $req->setSort("commissionRate_desc");
+        $req->setSevendaysReturn("true");
         $req->setKeyword($keywords);
         $req->setPageNo($p);
         $req->setPageSize(40);
@@ -276,8 +282,11 @@ class items_collectAction extends baseAction
             $item = (array)$item;
             $item['item_key'] = 'taobao_'.$item['num_iid'];
             $item['sid'] = $sid;
-            if (strpos($item['title'], '男')===false) {
-                $this->_collect_insert($item, $cate_id);
+            if (strpos($item['title'], '男')===false) { 
+                $obj = $items_mod->where(' title ="'.$item['title'].'"')->find();
+                if (!$obj) {
+                    $this->_collect_insert($item, $cate_id);
+                }
             }
             
             $items_nums++;

@@ -1,5 +1,9 @@
 <?php
 return array (
+  // 'DB_HOST' => '127.0.0.1',
+  // 'DB_NAME' => 'pinphp',
+  // 'DB_PWD' => 'root',
+  // 'DB_PREFIX' => 'pp_',
   'DB_HOST' => 'localhost',	
   'DB_NAME' => 'cnupin',
   'DB_USER' => 'root',

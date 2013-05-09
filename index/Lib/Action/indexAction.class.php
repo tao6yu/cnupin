@@ -13,7 +13,7 @@ class indexAction extends baseAction {
         $this->assign('ad_list', $ad_list);
         $this->assign('index_group_cates', $index_group_cates);
         
-        $this->waterfall(100,'','sort_order DESC,last_time DESC');
+        $this->waterfall(100,'','sort_order DESC,likes DESC');
     }
 
     function get_index_group_cates() {
