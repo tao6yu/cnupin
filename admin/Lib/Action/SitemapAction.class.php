@@ -2,7 +2,7 @@
 class SitemapAction extends BaseAction{
 	public function xml(){
 		$items=M('Items');
-		$items_list=$items->field('id,add_time')->where('status=1')->order('add_time desc')->limit('0,500')->select();
+		$items_list=$items->field('id,add_time')->where('status=1')->order('add_time desc')->limit('0,6000')->select();
 
 		foreach ($items_list as $key=>$val){
 			// $url='http://'.$_SERVER['HTTP_HOST'].get_url('index',$val['id'],'item');
