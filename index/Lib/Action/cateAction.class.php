@@ -20,12 +20,9 @@ class cateAction extends baseAction {
                 $cate_res['level'] = 2;
             }
         }
-        //print_r($cate_res);exit;
+        // print_r($cate_res);exit;
         $res = get_items_cate_list($cate_res['id'], $cate_res['level']);
-
         $this->assign('cate_list', $res['list']);
-
-        
         if ($cid) {
             $cate_info = $items_cate_mod->order('ordid DESC')->where(array('status' => 1, 'id' => $cid))->find();
             if ('0' == $cate_info['pid']) {
@@ -45,7 +42,6 @@ class cateAction extends baseAction {
             $this->seo['seo_keys'] = !empty($cate_info['seo_keys']) ? $cate_info['seo_keys'] : $cate_info['name'];
             !empty($cate_info['seo_desc']) && $this->seo['seo_desc'] = $cate_info['seo_desc'];
         }
-        
         $sql_where = "cid in(".$this->get_cat_ids($this->get_cat_tree($cid)).") and status=1 ";
         $count = $items_mod->where($sql_where)->count();
         $this->assign('count', $count);

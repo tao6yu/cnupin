@@ -4,7 +4,7 @@ function get_items_cate_list($id=0,$level=0){
     $list=array();
     $join="LEFT JOIN ".C('DB_PREFIX')."collect_taobao as ct ON ct.cate_id=".C('DB_PREFIX')."items_cate.id";
 
-    $res=$items_cate_mod->cache(true)->order('ordid DESC')->where('pid='.$id)
+    $res=$items_cate_mod->cache(true)->order('ordid DESC')->where('status = 1 and pid='.$id)
         ->join($join)
         ->select();
     foreach($res as $key=>$val){
@@ -13,7 +13,7 @@ function get_items_cate_list($id=0,$level=0){
         //二级分类
         $arr=$items_cate_mod->cache(true)
             ->order('ordid DESC')
-            ->where('pid='.$val['id'])->join($join)
+            ->where('status = 1 and pid='.$val['id'])->join($join)
             ->select();
         //三级分类
         foreach($arr as $k2=>$v2){
@@ -23,7 +23,7 @@ function get_items_cate_list($id=0,$level=0){
 
             $res3=$arr[$k2]['items']=$items_cate_mod->cache(true)
             	->order('ordid DESC')    
-            	->where('pid='.$v2['id'])
+            	->where('status = 1 and pid='.$v2['id'])
                 ->join($join)->select();
             foreach($res3 as $k3=>$v3){
                 $v3['level']=$level+2;
