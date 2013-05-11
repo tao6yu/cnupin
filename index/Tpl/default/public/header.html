@@ -27,6 +27,15 @@ $(function(){
 </script>
 <![endif]-->
 <script type="text/javascript">
+    $(function(){
+        $("img").lazyload({
+        threshold : 200,
+        effect:"fadeIn"
+  });
+});
+</script>
+
+<script type="text/javascript">
     $(document).ready(function(){
                 var topMain=$("#topHeader").height()+20;//是头部的高度加头部与nav导航之间的距离。
                 var nav=$("#navHeader");
